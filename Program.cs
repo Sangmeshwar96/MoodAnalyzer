@@ -11,7 +11,7 @@ namespace MoodAnalyserMSTest
             string mood = Console.ReadLine();
             MoodAnalyser obj = new MoodAnalyser();
             //obj.analyseMood(mood);
-            Console.WriteLine($"The user mood is {obj.analyseMood(mood)}");
+            Console.WriteLine($"The user mood is {obj.analyseMood()}");
 
         }
     }
