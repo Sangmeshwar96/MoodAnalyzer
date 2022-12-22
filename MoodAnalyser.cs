@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace MoodAnalyserMSTest
 {
     public class MoodAnalyser
@@ -18,10 +19,22 @@ namespace MoodAnalyserMSTest
         }
         public string analyseMood()
         {
-            if (this.message.Contains("sad"))
-                return "SAD";
-            else
-                return "HAPPY";
+            try
+            {
+                if (this.message.Equals(string.Empty))
+                {
+                    throw new Exception("The string is empty, you must enter something");
+                }
+                else if (this.message.ToUpper().Contains("SAD"))
+                    return "SAD";
+                else
+                    return "HAPPY";
+            }
+            catch (Exception obj)
+            {
+                Console.WriteLine(obj.Message);
+            }
+            return "null";
         }
     }
 }
