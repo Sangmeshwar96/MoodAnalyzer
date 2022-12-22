@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,12 +21,10 @@ namespace MoodAnalyserMSTest
         {
             try
             {
-                if (this.message.Equals(string.Empty))
+                if (this.message == null)
                 {
-                    throw new CustomException(CustomException.ExceptionType.EMPTY_MESSAGE, "Mood should not be empty");
-                }
-                else if (this.message == null)
                     throw new CustomException(CustomException.ExceptionType.NULL_MESSAGE, "Mood should not be null");
+                }
                 else if (this.message.ToUpper().Contains("SAD"))
                     return "SAD";
                 else
@@ -35,7 +34,7 @@ namespace MoodAnalyserMSTest
             {
                 Console.WriteLine(obj.Message);
             }
-            return "null";
+            return null;
         }
     }
 }
