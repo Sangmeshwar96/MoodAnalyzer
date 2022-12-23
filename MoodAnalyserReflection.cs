@@ -18,11 +18,22 @@ namespace MoodAnalyserMSTest
             string pattern = @"." + constructorName + "$";
             Match result = Regex.Match(className, pattern);
             if (result.Success)
-            {
-                Assembly executing = Assembly.GetExecutingAssembly();
-                Type moodAnalyseType = executing.GetType(className);
-                return Activator.CreateInstance(moodAnalyseType);
-            }
+                try
+                {
+                    Assembly executing = Assembly.GetExecutingAssembly();
+                    Type moodAnalyseType = executing.GetType(className);
+                    return Activator.CreateInstance(moodAnalyseType);
+                }
+                catch (ArgumentNullException)
+                {
+                    Console.WriteLine("Your input is not valid");
+                    throw new CustomException(CustomException.ExceptionType.NO_SUCH_CLASS, "Class not found");
+
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Something wrong happened.");
+                }
             return null;
         }
     }
