@@ -24,7 +24,10 @@ namespace MoodAnalyserMSTest
                 {
                     throw new CustomException(CustomException.ExceptionType.NULL_MESSAGE, "Mood should not be null");
                 }
+//<<<<<<< Updated upstream
                 if (this.message.Equals(string.Empty))
+//=======
+                if(this.message.Equals(String.Empty)) //>>>>>>> Stashed changes
                 {
                     throw new CustomException(CustomException.ExceptionType.EMPTY_MESSAGE, "Mood should not be empty");
                 }
