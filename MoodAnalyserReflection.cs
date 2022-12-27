@@ -27,6 +27,10 @@ namespace MoodAnalyserMSTest
                     return instance;
                 }
             }
+            else
+            {
+                throw new CustomException(CustomException.ExceptionType.NO_SUCH_CLASS, "Class not found");
+            }
             return null;
         }
     }
