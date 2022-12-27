@@ -10,33 +10,22 @@ namespace MoodAnalyserMSTest
 {
     public class MoodAnalyserReflection
     {
-        public MoodAnalyserReflection()
+        private string message;
+        public MoodAnalyserReflection(string message)
         {
+            this.message = message;
         }
-        public static object CreateMoodAnalyser(string className, string constructorName)
+        public static object CreateMoodAnalyseUsingParameterizedConstructor(string className, string constructorName, string message)
         {
-            string pattern = @"." + constructorName + "$";
-            Match result = Regex.Match(className, pattern);
-            if (result.Success)
-                try
-                {
-                    Assembly executing = Assembly.GetExecutingAssembly();
-                    Type moodAnalyseType = executing.GetType(className);
-                    return Activator.CreateInstance(moodAnalyseType);
-                }
-                catch (ArgumentNullException)
-                {
-                    Console.WriteLine("Your input is not valid");
-                    throw new CustomException(CustomException.ExceptionType.NO_SUCH_CLASS, "Class not found");
-
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("Something wrong happened.");
-                }
-            else
+            Type type = typeof(MoodAnalyser);
+            if (type.Name.Equals(className) || type.FullName.Equals(className))
             {
-                throw new CustomException(CustomException.ExceptionType.NO_SUCH_METHOD, "Constructor is not found");
+                if (type.Name.Equals(constructorName))
+                {
+                    ConstructorInfo ctor = type.GetConstructor(new[] { typeof(string) });
+                    object instance = ctor.Invoke(new object[] { message });
+                    return instance;
+                }
             }
             return null;
         }

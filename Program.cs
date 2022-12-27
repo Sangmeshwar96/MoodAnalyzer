@@ -8,11 +8,11 @@ namespace MoodAnalyserMSTest
         {
 
             Console.WriteLine("---Welcome to MoodAnalyser MSTesting---\n");
+          
             object expected = new MoodAnalyser(null);
-            object obj = MoodAnalyserReflection.CreateMoodAnalyser("MoodAnalyserMSTest.MoodAnalyser", "MoodAnalyser");
+            object obj = MoodAnalyserReflection.CreateMoodAnalyseUsingParameterizedConstructor("MoodAnalyserMSTest","MoodAnalyser", "MoodAnalyser");
             bool result = (expected.Equals(obj));
             Console.WriteLine(result);
-
         }
     }
 }
