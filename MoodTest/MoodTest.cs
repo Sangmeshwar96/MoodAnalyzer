@@ -8,11 +8,9 @@ namespace TestProject1
         [TestMethod]
         public void GivenMoodAnalyseClassName_ShouldReturnMoodAnalyseObject_UsingParameterizedConstructor()
         {
-            object expected = new MoodAnalyser("HAPPY"); //2000
-            //MoodAnalyser obj = (MoodAnalyser)expected;
+            object expected = new MoodAnalyser("HAPPY");
             object expected1 = expected;
             object obj = MoodAnalyserReflection.CreateMoodAnalyseUsingParameterizedConstructor("MoodAnalyserMSTest.MoodAnalyser", "MoodAnalyser", "HAPPY");
-            // expected.Equals(obj);
             Assert.AreEqual(expected, expected1);
         }
     }
