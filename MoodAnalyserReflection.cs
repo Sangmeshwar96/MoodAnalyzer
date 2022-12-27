@@ -26,6 +26,10 @@ namespace MoodAnalyserMSTest
                     object instance = ctor.Invoke(new object[] { message });
                     return instance;
                 }
+                else
+                {
+                    throw new CustomException(CustomException.ExceptionType.NO_SUCH_METHOD, "Constructor is not found");
+                }
             }
             else
             {
