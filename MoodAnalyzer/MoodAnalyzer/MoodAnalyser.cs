@@ -28,6 +28,7 @@ namespace MoodAnalyzer
                 else
                     return "HAPPY";
             }
+
             catch (NullReferenceException)
             {
                 throw new CustomException(CustomException.ExceptionType.NULL_MESSAGE, "Mood should not be Null");
@@ -36,10 +37,7 @@ namespace MoodAnalyzer
             {
                 throw new Exception(ex.Message);
             }
-            finally
-            {
 
-            }
         }
     }
 }
