@@ -6,7 +6,8 @@ namespace MoodAnalyzer
     {
         public static void Main(string[] args)
         {
-
+            //MoodAnalyser analyser = new MoodAnalyser();
+            //analyser.AnalyzeMood("Sad");
         }
     }
 }
