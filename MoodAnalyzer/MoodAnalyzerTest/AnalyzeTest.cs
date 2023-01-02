@@ -1,9 +1,12 @@
-using MoodAnalyzer;
-
 namespace MoodAnalyzerTest
 {
     public class Tests
     {
+        [SetUp]
+        public void Setup()
+        {
+        }
+
         [Test]
         public void GivenSadMessage_WhenAnalyze_ShouldReturnSadMood()
         {
