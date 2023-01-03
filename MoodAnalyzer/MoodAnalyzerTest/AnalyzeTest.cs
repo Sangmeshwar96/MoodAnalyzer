@@ -117,7 +117,7 @@ namespace MoodAnalyzerTest
         {
             try
             {
-                object actual = MoodAnalyzerFactory.CreateMoodAnalyzerParameterizedConstructor("MoodAnalyserProblem.MoodAnalyser", "MoodAnalyser", "Parameter Constructor");
+                object actual = MoodAnalyzerFactory.CreateMoodAnalyse("MoodAnalyserProblem.MoodAnalyser", "MoodAnalyser", "Parameter Constructor");
             }
             catch (CustomException e)
             {
