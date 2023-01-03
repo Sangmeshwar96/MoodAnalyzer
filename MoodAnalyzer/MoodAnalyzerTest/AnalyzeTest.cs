@@ -57,7 +57,7 @@ namespace MoodAnalyzerTest
                 string actual = mood.AnalyzeMood();
                 Assert.AreEqual("Happy", actual);
             }
-            catch (CustomException e)
+            catch (CustomException)
             {
                 throw new CustomException(CustomException.ExceptionType.EMPTY_MESSAGE, "Mood should not be Empty");
             }
@@ -76,7 +76,7 @@ namespace MoodAnalyzerTest
             {
                 object actual = MoodAnalyzerFactory.CreateMoodAnalyse("MoodAnalyzerProblem.Mood", "Mood");
             }
-            catch (CustomException e)
+            catch (CustomException)
             {
                 throw new CustomException(CustomException.ExceptionType.NO_SUCH_CLASS, "Class not found");
             }
@@ -88,28 +88,9 @@ namespace MoodAnalyzerTest
             {
                 object actual = MoodAnalyzerFactory.CreateMoodAnalyse("MoodAnalyzerProblem.MoodAnalyzer", "Mood");
             }
-            catch (CustomException e)
+            catch (CustomException)
             {
                 throw new CustomException(CustomException.ExceptionType.EMPTY_MESSAGE, "Constructor not found");
-            }
-        }
-        [Test]
-        public void GivenMoodAnalyserParameterizedConstructor_ShouldReturnObject()
-        {
-            object expected = new MoodAnalyser("Parameter Constructor");
-            object actual = MoodAnalyzerFactory.CreateMoodAnalyzerParameterizedConstructor("MoodAnalyserProblem.MoodAnalyser", "MoodAnalyser", "Parameter Constructor");
-            expected.Equals(actual);
-        }
-        [Test]
-        public void GivenClassNameforParameterizedConstructor_whenImproper_ShouldReturnMoodAnalysisException()
-        {
-            try
-            {
-                object actual = MoodAnalyzerFactory.CreateMoodAnalyzerParameterizedConstructor("MoodAnalyser.MoodAnalyser", "MoodAnalyser", "Parameter Constructor");
-            }
-            catch (CustomException e)
-            {
-                throw new CustomException(CustomException.ExceptionType.NO_SUCH_CLASS, "Class not found");
             }
         }
         [Test]
@@ -119,10 +100,24 @@ namespace MoodAnalyzerTest
             {
                 object actual = MoodAnalyzerFactory.CreateMoodAnalyse("MoodAnalyserProblem.MoodAnalyser", "MoodAnalyser", "Parameter Constructor");
             }
-            catch (CustomException e)
+            catch (CustomException)
             {
                 throw new CustomException(CustomException.ExceptionType.EMPTY_MESSAGE, "Constructor not found");
             }
+        }
+        [Test]
+        public void GivenHappyMessageUsingReflection_WhenProper_ShouldReturnHappy()
+        {
+            string expected = "happy";
+            string actual = MoodAnalyzerFactory.InvokeAnalyseMood("I am happy", "MoodAnalyzer");
+            expected.Equals(actual);
+        }
+        [Test]
+        public void GivenMethodname_WhenImproper_ShouldReturnMoodAnalysisException()
+        {
+            string expected = "Method not found";
+            string actual = MoodAnalyzerFactory.InvokeAnalyseMood("I am happy", "Mood");
+            Assert.AreEqual(expected, actual);
         }
     }
 }
