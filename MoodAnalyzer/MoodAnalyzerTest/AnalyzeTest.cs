@@ -92,5 +92,36 @@ namespace MoodAnalyzerTest
                 throw new CustomException(CustomException.ExceptionType.EMPTY_MESSAGE, "Constructor not found");
             }
         }
+        [Test]
+        public void GivenMoodAnalyserParameterizedConstructor_ShouldReturnObject()
+        {
+            object expected = new MoodAnalyser("Parameter Constructor");
+            object actual = MoodAnalyzerFactory.CreateMoodAnalyzerParameterizedConstructor("MoodAnalyserProblem.MoodAnalyser", "MoodAnalyser", "Parameter Constructor");
+            expected.Equals(actual);
+        }
+        [Test]
+        public void GivenClassNameforParameterizedConstructor_whenImproper_ShouldReturnMoodAnalysisException()
+        {
+            try
+            {
+                object actual = MoodAnalyzerFactory.CreateMoodAnalyzerParameterizedConstructor("MoodAnalyser.MoodAnalyser", "MoodAnalyser", "Parameter Constructor");
+            }
+            catch (CustomException e)
+            {
+                throw new CustomException(CustomException.ExceptionType.NO_SUCH_CLASS, "Class not found");
+            }
+        }
+        [Test]
+        public void GivenConstructorForParameterizedConstructorName_WhenImproper_ShouldReturnMoodAnalysisException()
+        {
+            try
+            {
+                object actual = MoodAnalyzerFactory.CreateMoodAnalyzerParameterizedConstructor("MoodAnalyserProblem.MoodAnalyser", "MoodAnalyser", "Parameter Constructor");
+            }
+            catch (CustomException e)
+            {
+                throw new CustomException(CustomException.ExceptionType.EMPTY_MESSAGE, "Constructor not found");
+            }
+        }
     }
 }
