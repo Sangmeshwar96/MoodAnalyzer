@@ -9,56 +9,63 @@ namespace MoodAnalyzerProblem
 {
     public class MoodAnalyzerFactory
     {
-        public static object CreateMoodAnalyse(string className, string constructorName)
+        public static object CreateMoodAnalyse(string className, string constructorName, string message = "")
         {
-            string pattern = @"." + constructorName + "";
-            Match result = Regex.Match(className, pattern);
-            if (result.Success)
+            if (message.Length == 0)
             {
+                string pattern = @"." + constructorName + "";
+                Match result = Regex.Match(className, pattern);
                 try
                 {
-                    Assembly executing = Assembly.GetExecutingAssembly();
-                    Type moodAnalyseType = executing.GetType(className);
-                    return Activator.CreateInstance(moodAnalyseType);
+                    if (result.Success)
+                    {
+                        Assembly executing = Assembly.GetExecutingAssembly();
+                        Type moodAnalyseType = executing.GetType(className);
+                        if (!moodAnalyseType.Name.Equals(constructorName))
+                        {
+                            throw new CustomException(CustomException.ExceptionType.NO_SUCH_CONSTRUCTOR, "Constructor not found");
+                        }
+                        return Activator.CreateInstance(moodAnalyseType);
+                    }
+                    else
+                    {
+                        throw new CustomException(CustomException.ExceptionType.NO_SUCH_CLASS, "Class not found");
+                    }
                 }
-                catch (ArgumentNullException)
+                catch (CustomException e)
                 {
-                    throw new CustomException(CustomException.ExceptionType.NO_SUCH_CLASS, "Class not found");
+                    return e.Message;
                 }
             }
             else
             {
-                throw new CustomException(CustomException.ExceptionType.NO_SUCH_CONSTRUCTOR, "Constructor not found");
-            }
-        }
-        public static object CreateMoodAnalyzerParameterizedConstructor(string className, string constructorName, string message)
-        {
-            Type type = Type.GetType(className);
-            try
-            {
-                if (type.FullName.Equals(className) || type.Name.Equals(className))
+                Type type = Type.GetType(className);
+                try
                 {
-                    if (type.Name.Equals(constructorName))
+                    if (type.FullName.Equals(className) || type.Name.Equals(className))
                     {
-                        ConstructorInfo info = type.GetConstructor(new[] { typeof(string) });
-                        object instance = info.Invoke(new object[] { message });
-                        return instance;
+                        if (type.Name.Equals(constructorName))
+                        {
+                            ConstructorInfo info = type.GetConstructor(new[] { typeof(string) });
+                            object instance = info.Invoke(new object[] { message });
+                            return instance;
+                        }
+                        else
+                        {
+                            throw new CustomException(CustomException.ExceptionType.NO_SUCH_CONSTRUCTOR, "Constructor not found");
+                        }
                     }
                     else
                     {
-                        throw new CustomException(CustomException.ExceptionType.NO_SUCH_CONSTRUCTOR, "Constructor not found");
+                        throw new CustomException(CustomException.ExceptionType.NO_SUCH_CLASS, "Class not found");
                     }
                 }
-                else
+                catch (Exception e)
                 {
-                    throw new CustomException(CustomException.ExceptionType.NO_SUCH_CLASS, "Class not found");
+                    return e;
                 }
             }
-            catch (Exception e)
-            {
-                return e;
-            }
-        }
 
+        }
     }
 }
