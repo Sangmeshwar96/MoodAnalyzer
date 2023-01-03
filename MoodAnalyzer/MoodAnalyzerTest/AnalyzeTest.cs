@@ -8,6 +8,7 @@ namespace MoodAnalyzerTest
         [SetUp]
         public void Setup()
         {
+
         }
 
         [Test]

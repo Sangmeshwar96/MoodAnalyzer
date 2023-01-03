@@ -11,7 +11,6 @@ namespace MoodAnalyzer
         public enum ExceptionType
         {
             Null,
-            EMPTY,
             EMPTY_MESSAGE,
             NULL_MESSAGE,
             NO_SUCH_CLASS,
